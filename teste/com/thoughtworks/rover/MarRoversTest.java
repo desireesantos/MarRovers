@@ -129,6 +129,33 @@ public class MarRoversTest {
 		
 		
 	}
+	
+	
+	@Test
+	public void endToEnd() throws Exception{
+		
+		Rover marRoverONE = new Rover();
+		Rover marRoverTWO = new Rover();
 
+		marRoverONE.firstCoordenateXAndYRover("5 5");
+		marRoverONE.startPositionRover("1 2 N");
+		marRoverONE.sequenceOfPositions("LMLMLMLMM");
+
+		marRoverTWO.startPositionRover("3 3 E");
+		marRoverTWO.sequenceOfPositions("MMRMMRMRRM");
+
+		assertEquals( "1 3 N" , marRoverONE
+				.printActualyCoordenateXYAndPositionRover());
+		
+		assertEquals( "5 1 E" , marRoverTWO
+				.printActualyCoordenateXYAndPositionRover());
+
+
+
+		
+	}
+	
+
+	
 
 }
