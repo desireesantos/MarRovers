@@ -2,20 +2,6 @@ package com.thoughtworks.rover;
 
 public class Rover {
 
-	/*
-	 * Problem chosen: MARS ROVERS (Number 2)
-	 * Explanation: The solution to the case Rovers
-	 * were a basis of building the skeleton rover with x and y coordinates plus
-	 * the cardinal points (north, south, east and west). Based on this point I
-	 * turn to the mobility of the 4 sides and floor to 4 sides. Thus primarily
-	 * focused on direction and movement with the possible values ​​and
-	 * subsequently created with functions such points mentioned
-	 * before.Main point at all times good practice code,so it is easy to
-	 * maintenance evolutionary addition to focusing on care using defensive
-	 * programming and attentive to pattern Null. Good use of TDD with JUnit, as you can
-	 * see there is a source folder just to put all code, because it's important to separete
-	 * code test of the code source code.
-	 */
 
 	private static final char NORTH = 'N';
 	private static final char SOUTH = 'S';

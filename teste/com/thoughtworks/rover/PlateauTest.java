@@ -1,16 +1,27 @@
 package com.thoughtworks.rover;
 
+import static org.junit.Assert.assertEquals;
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
 public class PlateauTest {
-	
-	
-	
-	@Test
+
+	Plateau plateau;
+
+	@Before
 	public void setUp() throws Exception {
 
-	Plateau	plateau = new Plateau();
+		plateau = new Plateau();
 	}
+
+	@Test
+	public void positionInicialX() {
+
+		assertEquals(Integer.parseInt("5"), plateau.x());
+	}
+
+	
 
 }
