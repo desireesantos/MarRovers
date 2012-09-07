@@ -9,126 +9,97 @@ import com.thoughtworks.rover.Rover;
 
 public class MarRoversTest {
 
-	Rover marRovers, maRoverTest;
+	Rover rover, maRoverTest;
+	Comunication comunication;
 
 	@Before
 	public void setUp() throws Exception {
 
-		marRovers = new Rover();
-	}
-
-	@Test
-	public void changeOnePositionRover() {
-		marRovers.startPositionRover("1 3 N");
-		marRovers.moveRoverPosition();
-
-		assertEquals("1 4 N",
-				marRovers.printActualyCoordenateXYAndPositionRover());
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void startPositionNull() throws Exception {
-		marRovers.startPositionRover(null);
-
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void startPositionEmpty() throws Exception {
-		marRovers.startPositionRover("");
-
+		rover = new Rover();
+		comunication = new Comunication();
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void CharNotCorrectForPosition() {
-		marRovers.startPositionRover("1 2 K");
+		comunication.startPosition("1 2 K", rover);
 
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void CharNotCorrectForSideRover() throws Exception {
-		marRovers.changeDirectionRover('N');
+		rover.turn('N');
 
 	}
-	
-	@Test(expected=IllegalStateException.class)
-	public void SideRoverWithCharLower() throws Exception {
-		marRovers.changeDirectionRover('l');
 
-	}
-	
-
-	@Test(expected= IllegalStateException.class)
+	@Test(expected = IllegalStateException.class)
 	public void sequencePositionsNull() throws Exception {
-		marRovers.sequenceOfPositions(null);
+		rover.sequenceOfPositions(null);
 
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test(expected = IllegalStateException.class)
 	public void sequencePositionsEmpty() throws Exception {
-		marRovers.sequenceOfPositions("");
+		rover.sequenceOfPositions("");
 
 	}
+
 	@Test
 	public void changeTwoPositionsRover() {
-		marRovers.startPositionRover("1 3 N");
-		marRovers.moveRoverPosition();
-		marRovers.moveRoverPosition();
+		comunication.startPosition("1 3 N", rover);
+		rover.move();
+		rover.move();
 
-		assertEquals("1 5 N",
-				marRovers.printActualyCoordenateXYAndPositionRover());
+		assertEquals("1 5 N", rover.exibitCoordinate());
 	}
 
 	@Test
 	public void changePositionNorthToWest() throws Exception {
-		marRovers.startPositionRover("1 3 N");
-		marRovers.changeDirectionRover('L');
-		assertEquals("1 3 W",
-				marRovers.printActualyCoordenateXYAndPositionRover());
+		comunication.startPosition("1 3 N", rover);
+		rover.turn('L');
+		assertEquals("1 3 W", rover.exibitCoordinate());
 	}
 
 	@Test
 	public void changePositionNorthToEast() throws Exception {
-		marRovers.startPositionRover("1 3 N");
-		marRovers.changeDirectionRover('R');
-		assertEquals("1 3 E",
-				marRovers.printActualyCoordenateXYAndPositionRover());
+		comunication.startPosition("1 3 N", rover);
+		rover.turn('R');
+		assertEquals("1 3 E", rover.exibitCoordinate());
 	}
+
 	
-	@Test
-	public void sequences() throws Exception {
-		marRovers.startPositionRover("1 3 N");
-		marRovers.changeDirectionRover('L');
-		marRovers.moveRoverPosition();
-		marRovers.moveRoverPosition();
-		marRovers.changeDirectionRover('R');
-		marRovers.moveRoverPosition();
-		marRovers.moveRoverPosition();
-		marRovers.changeDirectionRover('R');
-		marRovers.moveRoverPosition();
-		
-		assertEquals("0 5 E", marRovers.printActualyCoordenateXYAndPositionRover() );
-	}
-	
-	@Test(expected = IllegalStateException.class)
-	public void firstCoordenateNull() throws Exception {
-		marRovers.firstCoordenateXAndYRover(null);
-
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void firstCoordenateEmpty() throws Exception {
-		marRovers.firstCoordenateXAndYRover("");
-
-	}
-
 	@Test
 	public void sequencePosition() throws Exception {
-		marRovers.startPositionRover("1 3 N");
-		marRovers.sequenceOfPositions("LLLLRRRMMMM");
-		assertEquals("-3 3 W", marRovers.printActualyCoordenateXYAndPositionRover() );
-		
-		
+		comunication.startPosition("1 3 N", rover);
+		rover.sequenceOfPositions("LLLLRRRMMMM");
+		assertEquals("-3 3 W", rover.exibitCoordinate());
+
 	}
 
+	@Test
+	public void endToend() throws Exception {
+
+		Rover rover1= new Rover() ;	
+		Rover rover2= new Rover() ;
+		
+		Comunication comunicacao = new Comunication();		
+		Plateau plateau = new Plateau(5, 5);
+		
+
+		rover1 = comunicacao.startPosition("1 2 N", rover1);		
+		rover1.sequenceOfPositions("LMLMLMLMM");
+		System.out.println(rover1.exibitCoordinate());
+		
+		
+		rover2 = comunicacao.startPosition("3 3 E", rover2);
+		rover2.sequenceOfPositions("MMRMMRMRRM");
+		System.out.println(rover2.exibitCoordinate());
+
+
+		
+
+		
+		
+
+	}
 
 }

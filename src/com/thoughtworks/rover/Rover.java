@@ -2,7 +2,6 @@ package com.thoughtworks.rover;
 
 public class Rover {
 
-
 	private static final char NORTH = 'N';
 	private static final char SOUTH = 'S';
 	private static final char EAST = 'E';
@@ -16,6 +15,22 @@ public class Rover {
 		this.coordinateX = 0;
 		this.coordinateY = 0;
 		this.direction = 'N';
+	}
+
+	public int coordinateX() {
+		return coordinateX;
+	}
+
+	public void coordinateX(int coordinateX) {
+		this.coordinateX = coordinateX;
+	}
+
+	public int coordinateY() {
+		return coordinateY;
+	}
+
+	public void coordinateY(int coordinateY) {
+		this.coordinateY = coordinateY;
 	}
 
 	public char direction() {
@@ -35,7 +50,7 @@ public class Rover {
 
 	}
 
-	public void moveRoverPosition() {
+	public void move() {
 
 		switch (direction()) {
 		case NORTH:
@@ -54,7 +69,7 @@ public class Rover {
 		}
 	}
 
-	public void changeDirectionRover(char commandSideRover) throws Exception {
+	public void turn(char commandSideRover) throws Exception {
 
 		if (commandSideRover != 'L' && commandSideRover != 'R') {
 			throw new IllegalStateException(
@@ -92,48 +107,11 @@ public class Rover {
 		}
 	}
 
-	public String printActualyCoordenateXYAndPositionRover() {
-
+	public String exibitCoordinate() {
 		return this.coordinateX + " " + this.coordinateY + " " + direction;
-
 	}
 
-	public void firstCoordenateXAndYRover(String firstCoordenateXAndY) {
-
-		if (firstCoordenateXAndY != null && !(firstCoordenateXAndY.isEmpty())) {
-
-			String vectorWithCoordenatesXandY[] = firstCoordenateXAndY
-					.split(" ");
-			this.coordinateX = Integer.parseInt(vectorWithCoordenatesXandY[0]);
-			this.coordinateY = Integer.parseInt(vectorWithCoordenatesXandY[1]);
-		} else {
-			throw new IllegalStateException(
-					"Not valid first coordenate X and Y, write again ");
-
-		}
-
-	}
-
-	public void startPositionRover(String startPositionWithXYAndPPosition) {
-
-		if (startPositionWithXYAndPPosition != null
-				&& !(startPositionWithXYAndPPosition.isEmpty())) {
-
-			String vectorStartPositionWithXYAndPPosition[] = startPositionWithXYAndPPosition
-					.split(" ");
-			this.coordinateX = Integer
-					.parseInt(vectorStartPositionWithXYAndPPosition[0]);
-			this.coordinateY = Integer
-					.parseInt(vectorStartPositionWithXYAndPPosition[1]);
-			this.direction(vectorStartPositionWithXYAndPPosition[2].charAt(0));
-		} else {
-			throw new IllegalStateException(
-					"Not valid start coordenate X and Y and/or position, write again ");
-
-		}
-
-	}
-
+	
 	public void sequenceOfPositions(String sequenceOfPositions)
 			throws Exception {
 
@@ -142,12 +120,14 @@ public class Rover {
 			char commands[] = sequenceOfPositions.toCharArray();
 
 			for (char command : commands) {
-				if (command == 'M') {
 
-					moveRoverPosition();
+				if (command == 'M') {
+					move();
+
 				} else {
 
-					changeDirectionRover(command);
+					turn(command);
+
 				}
 			}
 		} else {

@@ -4,11 +4,12 @@ public class Plateau {
 	
 	private int x;
 	private int y;
+	private int plato[][];
 	
-	
-	public Plateau() {	
-		this.x = 0;
-		this.y = 0;
+	public Plateau(int sizeX, int sizeY) {	
+		this.x = sizeX;
+		this.y = sizeY;
+		plato= new int[x()][y()];
 	}
 	
 	public int x() {
@@ -24,6 +25,7 @@ public class Plateau {
 	public void y(int y) {
 		this.y = y;
 	}
+	
 	
 	public void delimitarArea(String firstCoordenateXAndY) {
 
@@ -41,12 +43,10 @@ public class Plateau {
 
 	}
 	
-	@Override
-	public String toString() {
-
-		return this.x + " " + this.y ;
-
+	public String exibitCoordinate() {
+		return this.x + " " + this.y;
 	}
+
 
 
 }
