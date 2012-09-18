@@ -58,5 +58,16 @@ public class ComunicationTest {
 		
 		assertEquals("0 5 E", rover.exibitCoordinate() );
 	}
+	
+	@Test
+	public void colision() throws Exception {
+		Rover roverTest = new Rover();
+		
+		comunication.startPosition("1 2 N", rover);
+		rover.move();
+		comunication.startPosition("1 3 N", roverTest);
+		
+		assertEquals(true, comunication.colision(rover, roverTest) );
+	}
 
 }
