@@ -19,7 +19,7 @@ public class PlateauTest {
 	@Test
 	public void positionInicialX() {
 
-		assertEquals(Integer.parseInt("5"), plateau.x());
+		assertEquals(5, plateau.x());
 	}
 
 	
@@ -28,7 +28,7 @@ public class PlateauTest {
 		
 		plateauTest = new Plateau(10, 30);
 
-		assertEquals( "10 30", plateau.exibitCoordinate());
+		assertEquals( "10 30", plateauTest.exibitCoordinate());
 	}
 
 	

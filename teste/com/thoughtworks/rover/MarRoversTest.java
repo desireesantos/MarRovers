@@ -1,6 +1,8 @@
 package com.thoughtworks.rover;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,96 +11,94 @@ import com.thoughtworks.rover.Rover;
 
 public class MarRoversTest {
 
-	Rover rover, maRoverTest;
-	Comunication comunication;
+	Rover rover, roverTemp, roverTemp1, roverTemp2;
+	
 
 	@Before
 	public void setUp() throws Exception {
 
-		rover = new Rover();
-		comunication = new Comunication();
+		rover = new Rover("1 3 N");
+	}
+
+	@Test(expected = NumberFormatException.class)
+	public void notTwoCoordenates() {
+		new Rover("4 N");
+
+	}
+
+	@Test(expected = NumberFormatException.class)
+	public void oneCharEmptyCoordenate() {
+		new Rover(" 4 N");
+
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void CharNotCorrectForPosition() {
-		comunication.startPosition("1 2 K", rover);
+	public void notCorrectCharPosition() {
+		new Rover("1 2 D");
 
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void CharNotCorrectForSideRover() throws Exception {
+	public void charNotCorrectTurnRover() throws Exception {
 		rover.turn('N');
 
 	}
 
-	@Test(expected = IllegalStateException.class)
-	public void sequencePositionsNull() throws Exception {
-		rover.sequenceOfPositions(null);
-
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void sequencePositionsEmpty() throws Exception {
-		rover.sequenceOfPositions("");
-
-	}
-
-	@Test
-	public void changeTwoPositionsRover() {
-		comunication.startPosition("1 3 N", rover);
-		rover.move();
-		rover.move();
-
-		assertEquals("1 5 N", rover.exibitCoordinate());
-	}
-
 	@Test
 	public void changePositionNorthToWest() throws Exception {
-		comunication.startPosition("1 3 N", rover);
-		rover.turn('L');
-		assertEquals("1 3 W", rover.exibitCoordinate());
+		roverTemp = new Rover("1 3 N");
+		roverTemp.turn('L');
+		assertEquals("1 3 W", roverTemp.exibitCoordinate());
 	}
 
 	@Test
 	public void changePositionNorthToEast() throws Exception {
-		comunication.startPosition("1 3 N", rover);
-		rover.turn('R');
-		assertEquals("1 3 E", rover.exibitCoordinate());
+		roverTemp1 = new Rover("1 3 N");
+		roverTemp1.turn('R');
+		assertEquals("1 3 E", roverTemp1.exibitCoordinate());
 	}
 
-	
+	@Test
+	public void changePositionSouthToEast() throws Exception {
+		roverTemp2 = new Rover("1 3 S");
+		roverTemp2.turn('L');
+		assertEquals("1 3 E", roverTemp2.exibitCoordinate());
+	}
+
+	@Test
+	public void move() throws Exception {
+
+		rover.move();
+		assertEquals("1 4 N", rover.exibitCoordinate());
+	}
+
 	@Test
 	public void sequencePosition() throws Exception {
-		comunication.startPosition("1 3 N", rover);
+
 		rover.sequenceOfPositions("LLLLRRRMMMM");
 		assertEquals("-3 3 W", rover.exibitCoordinate());
 
 	}
 
 	@Test
+	public void notNullPrintInformationRover() throws Exception {
+
+		assertNotNull(rover.exibitCoordinate());
+
+	}
+
+	@Test
 	public void endToend() throws Exception {
 
-		Rover rover1= new Rover() ;	
-		Rover rover2= new Rover() ;
-		
-		Comunication comunicacao = new Comunication();		
 		Plateau plateau = new Plateau(5, 5);
-		
 
-		rover1 = comunicacao.startPosition("1 2 N", rover1);		
+		Rover rover1 = new Rover("1 2 N");
 		rover1.sequenceOfPositions("LMLMLMLMM");
 		System.out.println(rover1.exibitCoordinate());
-		
-		
-		rover2 = comunicacao.startPosition("3 3 E", rover2);
+
+		Rover rover2 = new Rover("3 3 E");
 		rover2.sequenceOfPositions("MMRMMRMRRM");
 		System.out.println(rover2.exibitCoordinate());
-
-
-		
-
-		
-		
 
 	}
 

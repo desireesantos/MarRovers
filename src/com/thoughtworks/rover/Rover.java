@@ -6,15 +6,16 @@ public class Rover {
 	private static final char SOUTH = 'S';
 	private static final char EAST = 'E';
 	private static final char WEST = 'W';
-	private int coordinateX;
-	private int coordinateY;
+	private Integer coordinateX;
+	private Integer coordinateY;
 	private char direction;
+	
 
-	public Rover() {
+	public Rover(String XYPosition) {
 
-		this.coordinateX = 0;
-		this.coordinateY = 0;
-		this.direction = 'N';
+		startPosition(XYPosition);
+		
+
 	}
 
 	public int coordinateX() {
@@ -33,6 +34,8 @@ public class Rover {
 		this.coordinateY = coordinateY;
 	}
 
+	
+	
 	public char direction() {
 		return direction;
 	}
@@ -46,6 +49,50 @@ public class Rover {
 		} else {
 			throw new IllegalStateException(
 					"Not valid value for direction, please write a correct direction");
+		}
+
+	}
+
+	private Boolean validNumber(String coordenateValidNumber) {
+		Boolean validCoordenatevalue = false;
+
+		if (Integer.parseInt(coordenateValidNumber) > 0) {
+			validCoordenatevalue = true;
+		}
+
+		return validCoordenatevalue;
+	}
+
+	private void startPosition(String xyPosition) {
+
+		if (xyPosition != null && !xyPosition.isEmpty()) {
+			String vectorStartPositionWithXYAndPPosition[] = xyPosition
+					.split(" ");
+
+			if (validNumber(vectorStartPositionWithXYAndPPosition[0]) ) {
+
+				coordinateX(Integer
+						.parseInt(vectorStartPositionWithXYAndPPosition[0]));
+			} else {
+				throw new IllegalStateException("Not valid value X ");
+			}
+
+			
+			if (validNumber(vectorStartPositionWithXYAndPPosition[1])) {
+
+				coordinateY(Integer
+						.parseInt(vectorStartPositionWithXYAndPPosition[1]));
+			} else {
+				throw new IllegalStateException("Not valid value Y ");
+			}
+			
+
+			direction(vectorStartPositionWithXYAndPPosition[2].charAt(0));
+			//outOfAreaPlateau(plateau);
+
+		} else {
+			throw new NumberFormatException("Not valid coordenate write again ");
+
 		}
 
 	}
@@ -111,7 +158,6 @@ public class Rover {
 		return this.coordinateX + " " + this.coordinateY + " " + direction;
 	}
 
-	
 	public void sequenceOfPositions(String sequenceOfPositions)
 			throws Exception {
 
@@ -135,7 +181,8 @@ public class Rover {
 					"Not valid sequence of positions, write again ");
 
 		}
-
+	
 	}
-
+		
+ 
 }

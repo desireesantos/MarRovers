@@ -1,38 +1,46 @@
 package com.thoughtworks.rover;
 
+
+import java.util.ArrayList;
+
 public class Comunication {
-
-	public Rover startPosition(String XYPosition, Rover rover) {
-
-		if (XYPosition != null && !(XYPosition.isEmpty())) {
-
-			String vectorStartPositionWithXYAndPPosition[] = XYPosition
-					.split(" ");
-			rover.coordinateX(Integer
-					.parseInt(vectorStartPositionWithXYAndPPosition[0]));
-
-			rover.coordinateY(Integer
-					.parseInt(vectorStartPositionWithXYAndPPosition[1]));
-
-			rover.direction(vectorStartPositionWithXYAndPPosition[2].charAt(0));
-
-		} else {
-			throw new IllegalStateException(
-					"Not valid start coordenate X and Y and/or position, write again ");
-
-		}
-
-		return rover;
+	
+	private Plateau plateau;
+	
+	
+	public Comunication (Plateau plateau){
+		this.plateau = plateau;
+		
 	}
 
-	public boolean colision(Rover rover1, Rover rover2) {
+	static ArrayList<Rover> arrayRovers = new ArrayList<Rover>();
 
-		if (rover1.exibitCoordinate().equals(rover2)) {
+	public Boolean addRover(Rover rover) {
+		Boolean newRover = false;
 
-			return true;
+		if (rover != null && !(rover.exibitCoordinate().isEmpty())) {
+
+			arrayRovers.add(rover);
+			newRover = true;
+
+		} else {
+			throw new IllegalStateException("Try again rover with error ");
+
 		}
 
-		return true;
+		return newRover;
+	}
+
+	public boolean colision(Rover rover) {
+		Boolean hasColision = false;
+
+		for (Rover marRover : arrayRovers) {
+			if (rover.exibitCoordinate().equals(marRover.exibitCoordinate())) {
+				throw new IllegalStateException("Colision, game over ");
+			}
+		}
+
+		return hasColision;
 	}
 
 }

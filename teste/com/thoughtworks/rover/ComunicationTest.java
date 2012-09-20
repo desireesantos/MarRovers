@@ -1,73 +1,46 @@
 package com.thoughtworks.rover;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ComunicationTest {
 
 	Comunication comunication;
-	Rover rover;
+	Rover rover, roverTest1, roverTest2;
 
 	@Before
 	public void setUp() throws Exception {
 
-		comunication = new Comunication();
-		rover = new Rover();
+		Plateau plateau = new Plateau(5, 5);
+		rover = new Rover("1 2 N");
+		comunication = new Comunication(plateau);
 
 	}
 
 	@Test
-	public void startRoverNotNull() {
+	public void newRoverElement() {
 
-		comunication.startPosition("1 3 N", rover);
-		rover.move();
-		assertNotNull(rover);
+		assertTrue(comunication.addRover(rover));
+
 	}
 
-	
 	@Test(expected = IllegalStateException.class)
-	public void startPositionNull() throws Exception {
-		
-		comunication.startPosition(null, rover);
-
-	}
-
-	@Test
-	public void turnOnePosition() {
-
-		comunication.startPosition("1 3 N", rover);
-		rover.move();
-		assertEquals("1 4 N", rover.exibitCoordinate());
-	}
-	
-	
-	@Test
-	public void sequences() throws Exception {
-		comunication.startPosition("1 3 N", rover);
-		rover.turn('L');
-		rover.move();
-		rover.move();
-		rover.turn('R');
-		rover.move();
-		rover.move();
-		rover.turn('R');
-		rover.move();
-		
-		assertEquals("0 5 E", rover.exibitCoordinate() );
-	}
-	
-	@Test
 	public void colision() throws Exception {
-		Rover roverTest = new Rover();
-		
-		comunication.startPosition("1 2 N", rover);
+
 		rover.move();
-		comunication.startPosition("1 3 N", roverTest);
-		
-		assertEquals(true, comunication.colision(rover, roverTest) );
+		comunication.addRover(rover);
+
+		roverTest1 = new Rover("1 5 N");
+		roverTest1.move();
+		comunication.addRover(roverTest1);
+
+		roverTest2 = new Rover("1 5 N");
+		roverTest2.move();
+
+		comunication.colision(roverTest2);
+
 	}
 
 }
