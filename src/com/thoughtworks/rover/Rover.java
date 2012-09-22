@@ -6,10 +6,11 @@ public class Rover {
 	private static final char SOUTH = 'S';
 	private static final char EAST = 'E';
 	private static final char WEST = 'W';
-	private Integer coordinateX;
-	private Integer coordinateY;
+	private int coordinateX;
+	private int coordinateY;
 	private char direction;
 
+	
 	public Rover(String XYPosition) {
 
 		startPosition(XYPosition);
@@ -92,16 +93,20 @@ public class Rover {
 
 	public void move() {
 
-		switch (direction()) {
+		switch (direction) {
+		
 		case NORTH:
 			coordinateY++;
 			break;
+			
 		case SOUTH:
 			coordinateY--;
 			break;
+			
 		case EAST:
 			coordinateX++;
 			break;
+			
 		case WEST:
 			coordinateX--;
 			break;
@@ -109,13 +114,17 @@ public class Rover {
 		}
 	}
 
-	public String exibitCoordinate() {
+	
+	@Override
+	public String toString() {
 		return this.coordinateX + " " + this.coordinateY + " " + direction;
 	}
 
+	
 	public void turnLeft() {
 
 		switch (direction) {
+		
 		case NORTH:
 			direction = WEST;
 			break;
@@ -127,6 +136,7 @@ public class Rover {
 		case EAST:
 			direction = NORTH;
 			break;
+			
 		case WEST:
 			direction = SOUTH;
 			break;
@@ -141,7 +151,6 @@ public class Rover {
 
 		case NORTH:
 			direction = EAST;
-
 			break;
 
 		case SOUTH:
@@ -151,6 +160,7 @@ public class Rover {
 		case EAST:
 			direction = SOUTH;
 			break;
+			
 		case WEST:
 			direction = NORTH;
 			break;

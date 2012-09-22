@@ -15,7 +15,6 @@ public class ComunicationTest {
 	@Before
 	public void setUp() throws Exception {
 
-		Plateau plateau = new Plateau(5, 5);
 		rover = new Rover("1 2 N");
 		comunication = new Comunication();
 
@@ -50,7 +49,7 @@ public class ComunicationTest {
 
 		roverTest1 = new Rover("1 5 N");
 		comunication.sequenceOfPositions("R", roverTest1);
-		Assert.assertEquals("1 5 E", roverTest1.exibitCoordinate());
+		Assert.assertEquals("1 5 E", roverTest1.toString());
 
 	}
 
@@ -58,7 +57,7 @@ public class ComunicationTest {
 	public void sequencePosition() throws Exception {
 
 		comunication.sequenceOfPositions("LLLLRRRMMMM", rover);
-		assertEquals("1 2 W", rover.exibitCoordinate());
+		assertEquals("1 2 W", rover.toString());
 
 	}
 
@@ -66,21 +65,21 @@ public class ComunicationTest {
 	public void changePositionNorthToWest() throws Exception {
 		Rover roverTemp = new Rover("1 3 N");
 		roverTemp.turnLeft();
-		assertEquals("1 3 W", roverTemp.exibitCoordinate());
+		assertEquals("1 3 W", roverTemp.toString());
 	}
 
 	@Test
 	public void changePositionNorthToEast() throws Exception {
 		Rover roverTemp1 = new Rover("1 3 N");
 		roverTemp1.turnRight();
-		assertEquals("1 3 E", roverTemp1.exibitCoordinate());
+		assertEquals("1 3 E", roverTemp1.toString());
 	}
 
 	@Test
 	public void changePositionSouthToEast() throws Exception {
 		Rover roverTemp2 = new Rover("1 3 S");
 		roverTemp2.turnRight();
-		assertEquals("1 3 W", roverTemp2.exibitCoordinate());
+		assertEquals("1 3 W", roverTemp2.toString());
 	}
 
 }

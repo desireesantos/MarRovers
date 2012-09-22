@@ -4,15 +4,12 @@ import java.util.ArrayList;
 
 public class Comunication {
 
-	private Plateau plateau;
-
-	
 	static ArrayList<Rover> arrayRovers = new ArrayList<Rover>();
 
 	public Boolean addRover(Rover rover) {
 		Boolean newRover = false;
 
-		if (rover != null && !(rover.exibitCoordinate().isEmpty())) {
+		if (rover != null && !(rover.toString().isEmpty())) {
 
 			arrayRovers.add(rover);
 			newRover = true;
@@ -29,7 +26,7 @@ public class Comunication {
 		Boolean hasColision = false;
 
 		for (Rover marRover : arrayRovers) {
-			if (rover.exibitCoordinate().equals(marRover.exibitCoordinate())) {
+			if (rover.toString().equals(marRover.toString())) {
 				throw new IllegalStateException("Colision, game over ");
 			}
 		}
@@ -48,7 +45,6 @@ public class Comunication {
 
 				if (command == 'M') {
 					rover.move();
-
 				}
 
 				if (command == 'L') {
@@ -57,7 +53,6 @@ public class Comunication {
 				} else {
 					rover.turnRight();
 				}
-
 			}
 
 		} else {

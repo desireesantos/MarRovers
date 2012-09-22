@@ -1,23 +1,21 @@
 package com.thoughtworks.rover;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.CORBA.COMM_FAILURE;
 
 import com.thoughtworks.rover.Rover;
 
 public class MarRoversTest {
 
-	Rover rover, roverTemp, roverTemp1, roverTemp2;
+	Rover rover, rover1, rover2, roverTemp;
+	Comunication comunication;
 
 	@Before
 	public void setUp() throws Exception {
 
 		rover = new Rover("1 3 N");
+		comunication = new Comunication();
 	}
 
 	@Test(expected = NumberFormatException.class)
@@ -66,31 +64,26 @@ public class MarRoversTest {
 
 	@Test
 	public void move() throws Exception {
-
 		rover.move();
-		assertEquals("1 4 N", rover.exibitCoordinate());
+		assertEquals("1 4 N", rover.toString());
 	}
 
 	@Test
 	public void notNullPrintInformationRover() throws Exception {
-
-		assertNotNull(rover.exibitCoordinate());
+		assertNotNull(rover.toString());
 
 	}
 
 	@Test
 	public void endToend() throws Exception {
 
-		Plateau plateau = new Plateau(5, 5);
-		Comunication comunication = new Comunication();
-
-		Rover rover1 = new Rover("1 2 N");
+		rover1 = new Rover("1 2 N");
 		comunication.sequenceOfPositions("LMLMLMLMM", rover1);
-		System.out.println(rover1.exibitCoordinate());
+		System.out.println(rover1.toString());
 
-		Rover rover2 = new Rover("3 3 E");
+		rover2 = new Rover("3 3 E");
 		comunication.sequenceOfPositions("MMRMMRMRRM", rover2);
-		System.out.println(rover2.exibitCoordinate());
+		System.out.println(rover2.toString());
 
 	}
 
