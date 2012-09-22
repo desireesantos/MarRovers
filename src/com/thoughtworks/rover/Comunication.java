@@ -1,18 +1,12 @@
 package com.thoughtworks.rover;
 
-
 import java.util.ArrayList;
 
 public class Comunication {
-	
-	private Plateau plateau;
-	
-	
-	public Comunication (Plateau plateau){
-		this.plateau = plateau;
-		
-	}
 
+	private Plateau plateau;
+
+	
 	static ArrayList<Rover> arrayRovers = new ArrayList<Rover>();
 
 	public Boolean addRover(Rover rover) {
@@ -41,6 +35,37 @@ public class Comunication {
 		}
 
 		return hasColision;
+	}
+
+	public void sequenceOfPositions(String sequenceOfPositions, Rover rover)
+			throws Exception {
+
+		if (sequenceOfPositions != null && !(sequenceOfPositions.isEmpty())) {
+
+			char commands[] = sequenceOfPositions.toCharArray();
+
+			for (char command : commands) {
+
+				if (command == 'M') {
+					rover.move();
+
+				}
+
+				if (command == 'L') {
+					rover.turnLeft();
+
+				} else {
+					rover.turnRight();
+				}
+
+			}
+
+		} else {
+			throw new IllegalStateException(
+					"Not valid sequence of positions, write again ");
+
+		}
+
 	}
 
 }

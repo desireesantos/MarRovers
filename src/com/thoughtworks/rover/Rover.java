@@ -9,12 +9,10 @@ public class Rover {
 	private Integer coordinateX;
 	private Integer coordinateY;
 	private char direction;
-	
 
 	public Rover(String XYPosition) {
 
 		startPosition(XYPosition);
-		
 
 	}
 
@@ -34,8 +32,6 @@ public class Rover {
 		this.coordinateY = coordinateY;
 	}
 
-	
-	
 	public char direction() {
 		return direction;
 	}
@@ -53,6 +49,37 @@ public class Rover {
 
 	}
 
+	private void startPosition(String xyPosition) {
+
+		if (xyPosition != null && !xyPosition.isEmpty()) {
+			String vectorStartPositionWithXYAndPPosition[] = xyPosition
+					.split(" ");
+
+			if (validNumber(vectorStartPositionWithXYAndPPosition[0])) {
+
+				coordinateX(Integer
+						.parseInt(vectorStartPositionWithXYAndPPosition[0]));
+			} else {
+				throw new IllegalStateException("Not valid value X ");
+			}
+
+			if (validNumber(vectorStartPositionWithXYAndPPosition[1])) {
+
+				coordinateY(Integer
+						.parseInt(vectorStartPositionWithXYAndPPosition[1]));
+			} else {
+				throw new IllegalStateException("Not valid value Y ");
+			}
+
+			direction(vectorStartPositionWithXYAndPPosition[2].charAt(0));
+
+		} else {
+			throw new NumberFormatException("Not valid coordenate write again ");
+
+		}
+
+	}
+
 	private Boolean validNumber(String coordenateValidNumber) {
 		Boolean validCoordenatevalue = false;
 
@@ -61,40 +88,6 @@ public class Rover {
 		}
 
 		return validCoordenatevalue;
-	}
-
-	private void startPosition(String xyPosition) {
-
-		if (xyPosition != null && !xyPosition.isEmpty()) {
-			String vectorStartPositionWithXYAndPPosition[] = xyPosition
-					.split(" ");
-
-			if (validNumber(vectorStartPositionWithXYAndPPosition[0]) ) {
-
-				coordinateX(Integer
-						.parseInt(vectorStartPositionWithXYAndPPosition[0]));
-			} else {
-				throw new IllegalStateException("Not valid value X ");
-			}
-
-			
-			if (validNumber(vectorStartPositionWithXYAndPPosition[1])) {
-
-				coordinateY(Integer
-						.parseInt(vectorStartPositionWithXYAndPPosition[1]));
-			} else {
-				throw new IllegalStateException("Not valid value Y ");
-			}
-			
-
-			direction(vectorStartPositionWithXYAndPPosition[2].charAt(0));
-			//outOfAreaPlateau(plateau);
-
-		} else {
-			throw new NumberFormatException("Not valid coordenate write again ");
-
-		}
-
 	}
 
 	public void move() {
@@ -116,73 +109,54 @@ public class Rover {
 		}
 	}
 
-	public void turn(char commandSideRover) throws Exception {
-
-		if (commandSideRover != 'L' && commandSideRover != 'R') {
-			throw new IllegalStateException(
-					"Not valid value for side direction ");
-		}
-
-		switch (direction()) {
-		case NORTH:
-			if (commandSideRover == 'L')
-				direction = WEST;
-			else
-				direction = EAST;
-			break;
-
-		case SOUTH:
-			if (commandSideRover == 'L')
-				direction = EAST;
-			else
-				direction = WEST;
-			break;
-
-		case EAST:
-			if (commandSideRover == 'L')
-				direction = NORTH;
-			else
-				direction = SOUTH;
-			break;
-		case WEST:
-			if (commandSideRover == 'L')
-				direction = SOUTH;
-			else
-				direction = NORTH;
-			break;
-
-		}
-	}
-
 	public String exibitCoordinate() {
 		return this.coordinateX + " " + this.coordinateY + " " + direction;
 	}
 
-	public void sequenceOfPositions(String sequenceOfPositions)
-			throws Exception {
+	public void turnLeft() {
 
-		if (sequenceOfPositions != null && !(sequenceOfPositions.isEmpty())) {
+		switch (direction) {
+		case NORTH:
+			direction = WEST;
+			break;
 
-			char commands[] = sequenceOfPositions.toCharArray();
+		case SOUTH:
+			direction = EAST;
+			break;
 
-			for (char command : commands) {
-
-				if (command == 'M') {
-					move();
-
-				} else {
-
-					turn(command);
-
-				}
-			}
-		} else {
-			throw new IllegalStateException(
-					"Not valid sequence of positions, write again ");
+		case EAST:
+			direction = NORTH;
+			break;
+		case WEST:
+			direction = SOUTH;
+			break;
 
 		}
-	
+
 	}
-		
- 
+
+	public void turnRight() {
+
+		switch (direction) {
+
+		case NORTH:
+			direction = EAST;
+
+			break;
+
+		case SOUTH:
+			direction = WEST;
+			break;
+
+		case EAST:
+			direction = SOUTH;
+			break;
+		case WEST:
+			direction = NORTH;
+			break;
+
+		}
+
+	}
+
 }

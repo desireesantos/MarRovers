@@ -6,13 +6,13 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.omg.CORBA.COMM_FAILURE;
 
 import com.thoughtworks.rover.Rover;
 
 public class MarRoversTest {
 
 	Rover rover, roverTemp, roverTemp1, roverTemp2;
-	
 
 	@Before
 	public void setUp() throws Exception {
@@ -38,31 +38,30 @@ public class MarRoversTest {
 
 	}
 
-	@Test(expected = IllegalStateException.class)
-	public void charNotCorrectTurnRover() throws Exception {
-		rover.turn('N');
-
-	}
-
 	@Test
-	public void changePositionNorthToWest() throws Exception {
+	public void shouldTurnLeft() {
 		roverTemp = new Rover("1 3 N");
-		roverTemp.turn('L');
-		assertEquals("1 3 W", roverTemp.exibitCoordinate());
+		roverTemp.turnLeft();
+		assertEquals('W', roverTemp.direction());
+		roverTemp.turnLeft();
+		assertEquals('S', roverTemp.direction());
+		roverTemp.turnLeft();
+		assertEquals('E', roverTemp.direction());
+		roverTemp.turnLeft();
+		assertEquals('N', roverTemp.direction());
 	}
 
 	@Test
-	public void changePositionNorthToEast() throws Exception {
-		roverTemp1 = new Rover("1 3 N");
-		roverTemp1.turn('R');
-		assertEquals("1 3 E", roverTemp1.exibitCoordinate());
-	}
-
-	@Test
-	public void changePositionSouthToEast() throws Exception {
-		roverTemp2 = new Rover("1 3 S");
-		roverTemp2.turn('L');
-		assertEquals("1 3 E", roverTemp2.exibitCoordinate());
+	public void shouldTurnRight() {
+		roverTemp = new Rover("1 3 N");
+		roverTemp.turnRight();
+		assertEquals('E', roverTemp.direction());
+		roverTemp.turnRight();
+		assertEquals('S', roverTemp.direction());
+		roverTemp.turnRight();
+		assertEquals('W', roverTemp.direction());
+		roverTemp.turnRight();
+		assertEquals('N', roverTemp.direction());
 	}
 
 	@Test
@@ -70,14 +69,6 @@ public class MarRoversTest {
 
 		rover.move();
 		assertEquals("1 4 N", rover.exibitCoordinate());
-	}
-
-	@Test
-	public void sequencePosition() throws Exception {
-
-		rover.sequenceOfPositions("LLLLRRRMMMM");
-		assertEquals("-3 3 W", rover.exibitCoordinate());
-
 	}
 
 	@Test
@@ -91,13 +82,14 @@ public class MarRoversTest {
 	public void endToend() throws Exception {
 
 		Plateau plateau = new Plateau(5, 5);
+		Comunication comunication = new Comunication();
 
 		Rover rover1 = new Rover("1 2 N");
-		rover1.sequenceOfPositions("LMLMLMLMM");
+		comunication.sequenceOfPositions("LMLMLMLMM", rover1);
 		System.out.println(rover1.exibitCoordinate());
 
 		Rover rover2 = new Rover("3 3 E");
-		rover2.sequenceOfPositions("MMRMMRMRRM");
+		comunication.sequenceOfPositions("MMRMMRMRRM", rover2);
 		System.out.println(rover2.exibitCoordinate());
 
 	}
