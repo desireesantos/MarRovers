@@ -7,23 +7,23 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ComunicationTest {
+public class RoverInstructionTest {
 
-	Comunication comunication;
+	RoverInstruction roverInstruction;
 	Rover rover, roverTest1, roverTest2;
 
 	@Before
 	public void setUp() throws Exception {
 
 		rover = new Rover("1 2 N");
-		comunication = new Comunication();
+		roverInstruction = new RoverInstruction();
 
 	}
 
 	@Test
 	public void newRoverElement() {
 
-		assertTrue(comunication.addRover(rover));
+		assertTrue(roverInstruction.addRover(rover));
 
 	}
 
@@ -31,16 +31,16 @@ public class ComunicationTest {
 	public void colision() throws Exception {
 
 		rover.move();
-		comunication.addRover(rover);
+		roverInstruction.addRover(rover);
 
 		roverTest1 = new Rover("1 5 N");
 		roverTest1.move();
-		comunication.addRover(roverTest1);
+		roverInstruction.addRover(roverTest1);
 
 		roverTest2 = new Rover("1 5 N");
 		roverTest2.move();
 
-		comunication.colision(roverTest2);
+		roverInstruction.colision(roverTest2);
 
 	}
 
@@ -48,7 +48,7 @@ public class ComunicationTest {
 	public void turnRight() throws Exception {
 
 		roverTest1 = new Rover("1 5 N");
-		comunication.sequenceOfPositions("R", roverTest1);
+		roverInstruction.sequenceOfPositions("R", roverTest1);
 		Assert.assertEquals("1 5 E", roverTest1.toString());
 
 	}
@@ -56,7 +56,7 @@ public class ComunicationTest {
 	@Test
 	public void sequencePosition() throws Exception {
 
-		comunication.sequenceOfPositions("LLLLRRRMMMM", rover);
+		roverInstruction.sequenceOfPositions("LLLLRRRMMMM", rover);
 		assertEquals("1 2 W", rover.toString());
 
 	}

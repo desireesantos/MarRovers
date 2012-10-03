@@ -10,7 +10,6 @@ public class Rover {
 	private int coordinateY;
 	private char direction;
 
-	
 	public Rover(String XYPosition) {
 
 		startPosition(XYPosition);
@@ -49,6 +48,17 @@ public class Rover {
 		}
 
 	}
+	
+	public Boolean ValidInitialPosition(Rover rover, Plateau plateau) {
+		Boolean validPosition = true;
+		if (rover.coordinateX() == plateau.y() || rover.coordinateY() == plateau.y()) {
+			validPosition = false;
+			throw new IllegalStateException("Not valid value for coordenate");
+
+		}
+		return validPosition;
+	}
+
 
 	private void startPosition(String xyPosition) {
 
@@ -68,7 +78,9 @@ public class Rover {
 
 				coordinateY(Integer
 						.parseInt(vectorStartPositionWithXYAndPPosition[1]));
-			} else {
+			}
+
+			else {
 				throw new IllegalStateException("Not valid value Y ");
 			}
 
@@ -94,19 +106,19 @@ public class Rover {
 	public void move() {
 
 		switch (direction) {
-		
+
 		case NORTH:
 			coordinateY++;
 			break;
-			
+
 		case SOUTH:
 			coordinateY--;
 			break;
-			
+
 		case EAST:
 			coordinateX++;
 			break;
-			
+
 		case WEST:
 			coordinateX--;
 			break;
@@ -114,17 +126,15 @@ public class Rover {
 		}
 	}
 
-	
 	@Override
 	public String toString() {
 		return this.coordinateX + " " + this.coordinateY + " " + direction;
 	}
 
-	
 	public void turnLeft() {
 
 		switch (direction) {
-		
+
 		case NORTH:
 			direction = WEST;
 			break;
@@ -136,7 +146,7 @@ public class Rover {
 		case EAST:
 			direction = NORTH;
 			break;
-			
+
 		case WEST:
 			direction = SOUTH;
 			break;
@@ -160,7 +170,7 @@ public class Rover {
 		case EAST:
 			direction = SOUTH;
 			break;
-			
+
 		case WEST:
 			direction = NORTH;
 			break;
@@ -169,4 +179,5 @@ public class Rover {
 
 	}
 
+	
 }

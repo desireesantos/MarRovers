@@ -2,7 +2,7 @@ package com.thoughtworks.rover;
 
 import java.util.ArrayList;
 
-public class Comunication {
+public class RoverInstruction {
 
 	static ArrayList<Rover> arrayRovers = new ArrayList<Rover>();
 

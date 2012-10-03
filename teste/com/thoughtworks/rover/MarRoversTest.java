@@ -9,13 +9,13 @@ import com.thoughtworks.rover.Rover;
 public class MarRoversTest {
 
 	Rover rover, rover1, rover2, roverTemp;
-	Comunication comunication;
+	RoverInstruction roverInstruction;
 
 	@Before
 	public void setUp() throws Exception {
 
 		rover = new Rover("1 3 N");
-		comunication = new Comunication();
+		roverInstruction = new RoverInstruction();
 	}
 
 	@Test(expected = NumberFormatException.class)
@@ -73,16 +73,24 @@ public class MarRoversTest {
 		assertNotNull(rover.toString());
 
 	}
+	
+	
+	@Test(expected= IllegalStateException.class)
+	public void position() throws Exception {
+		Rover roverTest = new Rover("5 6 N");
+		 assertEquals(true, rover.ValidInitialPosition(roverTest, new Plateau(5, 5)));
+		
+	}
 
 	@Test
 	public void endToend() throws Exception {
 
 		rover1 = new Rover("1 2 N");
-		comunication.sequenceOfPositions("LMLMLMLMM", rover1);
+		roverInstruction.sequenceOfPositions("LMLMLMLMM", rover1);
 		System.out.println(rover1.toString());
 
 		rover2 = new Rover("3 3 E");
-		comunication.sequenceOfPositions("MMRMMRMRRM", rover2);
+		roverInstruction.sequenceOfPositions("MMRMMRMRRM", rover2);
 		System.out.println(rover2.toString());
 
 	}
