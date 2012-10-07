@@ -75,8 +75,14 @@ public class MarRoversTest {
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void positionNotPossibleToFly() throws Exception {
+	public void coordinateYNotPossibleToFly() throws Exception {
 		new Rover("5 9 N", "5 7");
+
+	}
+	
+	@Test(expected=IllegalStateException.class)
+	public void coordinateXNotPossibleToFly() throws Exception {
+		new Rover("9 7 N", "5 7");
 
 	}
 

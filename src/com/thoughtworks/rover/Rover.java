@@ -47,7 +47,7 @@ public class Rover {
 			this.direction = direction;
 		} else {
 			throw new IllegalStateException(
-					"Not valid value for direction, please write a correct direction");
+					"Not valid value direction, please write a correct direction");
 		}
 
 	}
@@ -80,7 +80,7 @@ public class Rover {
 					|| coordinateY() > permitedFlyCoordinateY) {
 				validPosition = false;
 				throw new IllegalStateException(
-						"Not valid value for coordenate");
+						"Coordenate is out of the area");
 			}
 
 		} else {
