@@ -22,8 +22,8 @@ public class RoverInstruction {
 		return newRover;
 	}
 
-	public boolean colision(Rover rover) {
-		Boolean hasColision = false;
+	public void colision(Rover rover) {
+	
 
 		for (Rover marRover : arrayRovers) {
 			if (rover.toString().equals(marRover.toString())) {
@@ -31,7 +31,7 @@ public class RoverInstruction {
 			}
 		}
 
-		return hasColision;
+	
 	}
 
 	public void sequenceOfPositions(String sequenceOfPositions, Rover rover)
@@ -42,16 +42,20 @@ public class RoverInstruction {
 			char commands[] = sequenceOfPositions.toCharArray();
 
 			for (char command : commands) {
+				
 
 				if (command == 'M') {
 					rover.move();
+					colision(rover);
 				}
 
 				if (command == 'L') {
 					rover.turnLeft();
+					colision(rover);
 
 				} else {
 					rover.turnRight();
+					colision(rover);
 				}
 			}
 

@@ -15,7 +15,7 @@ public class RoverInstructionTest {
 	@Before
 	public void setUp() throws Exception {
 
-		rover = new Rover("1 2 N");
+		rover = new Rover("1 2 N", "5 5");
 		roverInstruction = new RoverInstruction();
 
 	}
@@ -33,11 +33,11 @@ public class RoverInstructionTest {
 		rover.move();
 		roverInstruction.addRover(rover);
 
-		roverTest1 = new Rover("1 5 N");
+		roverTest1 = new Rover("1 5 N", "5 5");
 		roverTest1.move();
 		roverInstruction.addRover(roverTest1);
 
-		roverTest2 = new Rover("1 5 N");
+		roverTest2 = new Rover("1 5 N", "5 5");
 		roverTest2.move();
 
 		roverInstruction.colision(roverTest2);
@@ -47,13 +47,13 @@ public class RoverInstructionTest {
 	@Test
 	public void turnRight() throws Exception {
 
-		roverTest1 = new Rover("1 5 N");
+		roverTest1 = new Rover("1 5 N", "5 5");
 		roverInstruction.sequenceOfPositions("R", roverTest1);
 		Assert.assertEquals("1 5 E", roverTest1.toString());
 
 	}
 
-	@Test
+	@Test(expected=IllegalStateException.class)
 	public void sequencePosition() throws Exception {
 
 		roverInstruction.sequenceOfPositions("LLLLRRRMMMM", rover);
@@ -63,21 +63,21 @@ public class RoverInstructionTest {
 
 	@Test
 	public void changePositionNorthToWest() throws Exception {
-		Rover roverTemp = new Rover("1 3 N");
+		Rover roverTemp = new Rover("1 3 N", "5 5");
 		roverTemp.turnLeft();
 		assertEquals("1 3 W", roverTemp.toString());
 	}
 
 	@Test
 	public void changePositionNorthToEast() throws Exception {
-		Rover roverTemp1 = new Rover("1 3 N");
+		Rover roverTemp1 = new Rover("1 3 N", "5 5");
 		roverTemp1.turnRight();
 		assertEquals("1 3 E", roverTemp1.toString());
 	}
 
 	@Test
 	public void changePositionSouthToEast() throws Exception {
-		Rover roverTemp2 = new Rover("1 3 S");
+		Rover roverTemp2 = new Rover("1 3 S", "5 5");
 		roverTemp2.turnRight();
 		assertEquals("1 3 W", roverTemp2.toString());
 	}

@@ -14,31 +14,31 @@ public class MarRoversTest {
 	@Before
 	public void setUp() throws Exception {
 
-		rover = new Rover("1 3 N");
+		rover = new Rover("1 3 N", "5 5");
 		roverInstruction = new RoverInstruction();
 	}
 
 	@Test(expected = NumberFormatException.class)
 	public void notTwoCoordenates() {
-		new Rover("4 N");
+		new Rover("4 N", "5 5");
 
 	}
 
 	@Test(expected = NumberFormatException.class)
 	public void oneCharEmptyCoordenate() {
-		new Rover(" 4 N");
+		new Rover(" 4 N", "5 5");
 
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void notCorrectCharPosition() {
-		new Rover("1 2 D");
+		new Rover("1 2 D", "5 5");
 
 	}
 
 	@Test
 	public void shouldTurnLeft() {
-		roverTemp = new Rover("1 3 N");
+		roverTemp = new Rover("1 3 N", "5 5");
 		roverTemp.turnLeft();
 		assertEquals('W', roverTemp.direction());
 		roverTemp.turnLeft();
@@ -51,7 +51,7 @@ public class MarRoversTest {
 
 	@Test
 	public void shouldTurnRight() {
-		roverTemp = new Rover("1 3 N");
+		roverTemp = new Rover("1 3 N", "5 5");
 		roverTemp.turnRight();
 		assertEquals('E', roverTemp.direction());
 		roverTemp.turnRight();
@@ -73,23 +73,21 @@ public class MarRoversTest {
 		assertNotNull(rover.toString());
 
 	}
-	
-	
-	@Test(expected= IllegalStateException.class)
-	public void position() throws Exception {
-		Rover roverTest = new Rover("5 6 N");
-		 assertEquals(true, rover.ValidInitialPosition(roverTest, new Plateau(5, 5)));
-		
+
+	@Test(expected = IllegalStateException.class)
+	public void positionNotPossibleToFly() throws Exception {
+		new Rover("5 9 N", "5 7");
+
 	}
 
 	@Test
 	public void endToend() throws Exception {
 
-		rover1 = new Rover("1 2 N");
+		rover1 = new Rover("1 2 N", "5 5");
 		roverInstruction.sequenceOfPositions("LMLMLMLMM", rover1);
 		System.out.println(rover1.toString());
 
-		rover2 = new Rover("3 3 E");
+		rover2 = new Rover("3 3 E", "5 5");
 		roverInstruction.sequenceOfPositions("MMRMMRMRRM", rover2);
 		System.out.println(rover2.toString());
 

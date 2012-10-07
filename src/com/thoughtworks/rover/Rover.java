@@ -9,10 +9,13 @@ public class Rover {
 	private int coordinateX;
 	private int coordinateY;
 	private char direction;
+	private int permitedFlyCoordinateX;
+	private int permitedFlyCoordinateY;
 
-	public Rover(String XYPosition) {
+	public Rover(String actualyPositionRover, String permitedAreaToFly) {
 
-		startPosition(XYPosition);
+		startPosition(actualyPositionRover);
+		validInitialPosition(permitedAreaToFly);
 
 	}
 
@@ -48,17 +51,45 @@ public class Rover {
 		}
 
 	}
-	
-	public Boolean ValidInitialPosition(Rover rover, Plateau plateau) {
+
+	private Boolean validInitialPosition(String possibleAreaRoverToFly) {
 		Boolean validPosition = true;
-		if (rover.coordinateX() == plateau.y() || rover.coordinateY() == plateau.y()) {
-			validPosition = false;
-			throw new IllegalStateException("Not valid value for coordenate");
+
+		if (possibleAreaRoverToFly != null && !possibleAreaRoverToFly.isEmpty()) {
+			String vectorPermitedArea[] = possibleAreaRoverToFly.split(" ");
+
+			if (validNumber(vectorPermitedArea[0])) {
+
+				permitedFlyCoordinateX = Integer
+						.parseInt(vectorPermitedArea[0]);
+			} else {
+				throw new IllegalStateException("Not valid value area X ");
+			}
+
+			if (validNumber(vectorPermitedArea[1])) {
+
+				permitedFlyCoordinateY = Integer
+						.parseInt(vectorPermitedArea[1]);
+			}
+
+			else {
+				throw new IllegalStateException("Not valid value area Y ");
+			}
+
+			if (coordinateX() > permitedFlyCoordinateX
+					|| coordinateY() > permitedFlyCoordinateY) {
+				validPosition = false;
+				throw new IllegalStateException(
+						"Not valid value for coordenate");
+			}
+
+		} else {
+			throw new NumberFormatException("Not valid coordenate write again ");
 
 		}
+
 		return validPosition;
 	}
-
 
 	private void startPosition(String xyPosition) {
 
@@ -179,5 +210,4 @@ public class Rover {
 
 	}
 
-	
 }
