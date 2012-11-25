@@ -12,7 +12,7 @@ public class Rover {
 	private int permitedFlyCoordinateX;
 	private int permitedFlyCoordinateY;
 
-	public Rover(String actualyPositionRover, String permitedAreaToFly) {
+	public Rover(String actualyPositionRover, PermitedFly permitedAreaToFly) {
 
 		startPosition(actualyPositionRover);
 		validInitialPosition(permitedAreaToFly);
@@ -52,24 +52,21 @@ public class Rover {
 
 	}
 
-	private Boolean validInitialPosition(String possibleAreaRoverToFly) {
+	private Boolean validInitialPosition(PermitedFly possibleAreaRoverToFly) {
 		Boolean validPosition = true;
 
-		if (possibleAreaRoverToFly != null && !possibleAreaRoverToFly.isEmpty()) {
-			String vectorPermitedArea[] = possibleAreaRoverToFly.split(" ");
+		if (possibleAreaRoverToFly != null) {
 
-			if (validNumber(vectorPermitedArea[0])) {
+			if (validNumber(Integer.toString(possibleAreaRoverToFly.x()))) {
 
-				permitedFlyCoordinateX = Integer
-						.parseInt(vectorPermitedArea[0]);
+				permitedFlyCoordinateX = possibleAreaRoverToFly.x();
 			} else {
 				throw new IllegalStateException("Not valid value area X ");
 			}
 
-			if (validNumber(vectorPermitedArea[1])) {
+			if (validNumber(Integer.toString(possibleAreaRoverToFly.y()))) {
 
-				permitedFlyCoordinateY = Integer
-						.parseInt(vectorPermitedArea[1]);
+				permitedFlyCoordinateY = possibleAreaRoverToFly.y();
 			}
 
 			else {
@@ -79,8 +76,7 @@ public class Rover {
 			if (coordinateX() > permitedFlyCoordinateX
 					|| coordinateY() > permitedFlyCoordinateY) {
 				validPosition = false;
-				throw new IllegalStateException(
-						"Coordenate is out of the area");
+				throw new IllegalStateException("Coordenate is out of the area");
 			}
 
 		} else {
@@ -188,26 +184,24 @@ public class Rover {
 
 	public void turnRight() {
 
-		switch (direction) {
-
-		case NORTH:
+		if (direction == NORTH) {
 			direction = EAST;
-			break;
+		} else {
 
-		case SOUTH:
-			direction = WEST;
-			break;
+			if (direction == SOUTH) {
+				direction = WEST;
+			} else {
 
-		case EAST:
-			direction = SOUTH;
-			break;
+				if (direction == EAST) {
+					direction = SOUTH;
 
-		case WEST:
-			direction = NORTH;
-			break;
+				} else {
+					if (direction == WEST) {
+						direction = NORTH;
+					}
 
+				}
+			}
 		}
-
 	}
-
 }

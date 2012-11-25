@@ -10,35 +10,36 @@ public class MarRoversTest {
 
 	Rover rover, rover1, rover2, roverTemp;
 	RoverInstruction roverInstruction;
+	PermitedFly  permitedFly;
 
 	@Before
 	public void setUp() throws Exception {
-
-		rover = new Rover("1 3 N", "5 5");
+		permitedFly = new PermitedFly(new Plateau(5, 5));
+		rover = new Rover("1 3 N", permitedFly);
 		roverInstruction = new RoverInstruction();
 	}
 
 	@Test(expected = NumberFormatException.class)
 	public void notTwoCoordenates() {
-		new Rover("4 N", "5 5");
+		new Rover("4 N", permitedFly);
 
 	}
 
 	@Test(expected = NumberFormatException.class)
 	public void oneCharEmptyCoordenate() {
-		new Rover(" 4 N", "5 5");
+		new Rover(" 4 N", permitedFly);
 
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void notCorrectCharPosition() {
-		new Rover("1 2 D", "5 5");
+		new Rover("1 2 D", permitedFly);
 
 	}
 
 	@Test
 	public void shouldTurnLeft() {
-		roverTemp = new Rover("1 3 N", "5 5");
+		roverTemp = new Rover("1 3 N", permitedFly);
 		roverTemp.turnLeft();
 		assertEquals('W', roverTemp.direction());
 		roverTemp.turnLeft();
@@ -51,7 +52,7 @@ public class MarRoversTest {
 
 	@Test
 	public void shouldTurnRight() {
-		roverTemp = new Rover("1 3 N", "5 5");
+		roverTemp = new Rover("1 3 N", permitedFly);
 		roverTemp.turnRight();
 		assertEquals('E', roverTemp.direction());
 		roverTemp.turnRight();
@@ -76,24 +77,24 @@ public class MarRoversTest {
 
 	@Test(expected = IllegalStateException.class)
 	public void coordinateYNotPossibleToFly() throws Exception {
-		new Rover("5 9 N", "5 7");
+		new Rover("5 9 N", permitedFly);
 
 	}
 	
 	@Test(expected=IllegalStateException.class)
 	public void coordinateXNotPossibleToFly() throws Exception {
-		new Rover("9 7 N", "5 7");
+		new Rover("9 7 N", permitedFly);
 
 	}
 
 	@Test
 	public void endToend() throws Exception {
 
-		rover1 = new Rover("1 2 N", "5 5");
+		rover1 = new Rover("1 2 N", permitedFly);
 		roverInstruction.sequenceOfPositions("LMLMLMLMM", rover1);
 		System.out.println(rover1.toString());
 
-		rover2 = new Rover("3 3 E", "5 5");
+		rover2 = new Rover("3 3 E", permitedFly);
 		roverInstruction.sequenceOfPositions("MMRMMRMRRM", rover2);
 		System.out.println(rover2.toString());
 
